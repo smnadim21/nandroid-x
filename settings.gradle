@@ -1,0 +1,3 @@
+rootProject.name='Nandroid-X'
+include ':app'
+include ':nadx'
