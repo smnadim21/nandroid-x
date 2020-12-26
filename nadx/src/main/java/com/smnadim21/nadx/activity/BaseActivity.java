@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import com.smnadim21.nadx.R;
-
 
 public class BaseActivity extends AppCompatActivity {
     Activity activity;
@@ -18,7 +16,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
        // setContentView(R.layout.activity_main);
-        setTheme(R.style.AppThemeNoActionBar);
+        //setTheme(R.style.AppThemeNoActionBar);
         activity = BaseActivity.this;
     }
 
@@ -27,7 +25,8 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void hideKeyboard(View v) {
-        InputMethodManager imm = (InputMethodManager) getBaseActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager)
+                getBaseActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm != null) {
             imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
         }

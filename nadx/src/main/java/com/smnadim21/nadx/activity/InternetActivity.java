@@ -13,14 +13,14 @@ public class InternetActivity extends BaseActivity implements InternetCheck.Cons
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new InternetCheck(this);
+        new InternetCheck(InternetActivity.this);
     }
 
     @Override
     public void accept(Boolean internet) {
         if (!internet) {
             NandX.snackErr(
-                    this,
+                    getBaseActivity(),
                     "NO INTERNET",
                     new View.OnClickListener() {
                         @Override

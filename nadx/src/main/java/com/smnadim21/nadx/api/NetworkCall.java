@@ -142,22 +142,22 @@ public class NetworkCall implements Callback<String> {
         return new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(text));
     }
 
-    void snackErr(Activity activity,
-                  final String mainTextString,
-                  View.OnClickListener listener) {
+    private void snackErr(Activity activity,
+                          final String mainTextString,
+                          View.OnClickListener listener) {
         Snackbar snackbar = Snackbar.make(
                 activity.findViewById(android.R.id.content),
                 mainTextString,
                 Snackbar.LENGTH_INDEFINITE)
                 .setActionTextColor(Color.WHITE)
-                .setAction("OK", listener);
+                .setAction("MORE", listener);
         snackbar.getView().setBackgroundColor(ContextCompat.getColor(activity, R.color.red_900));
         snackbar.show();
     }
 
-    void snackOK(Activity activity,
-                 final String mainText,
-                 View.OnClickListener listener) {
+    private void snackOK(Activity activity,
+                         final String mainText,
+                         View.OnClickListener listener) {
         Snackbar snackbar = Snackbar.make(
                 activity.findViewById(android.R.id.content),
                 mainText,
