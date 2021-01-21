@@ -33,8 +33,9 @@ dependencies {
 
     //design library
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'com.google.android.material:material:1.1.0'
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+    implementation 'org.jetbrains:annotations:15.0'
 
     //NETWORK LIBRARY
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
@@ -43,4 +44,8 @@ dependencies {
 
     //Local Broadcast Manager
     implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
+
+    //loading
+    //spinkit
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
 }

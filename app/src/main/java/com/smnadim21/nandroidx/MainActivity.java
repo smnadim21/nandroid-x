@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.google.gson.GsonBuilder;
 import com.smnadim21.nadx.activity.InternetActivity;
-import com.smnadim21.nadx.api.ApiClient;
+import com.smnadim21.nadx.api.BaseApiClient;
 import com.smnadim21.nadx.api.GetResponse;
 import com.smnadim21.nadx.api.NetworkCall;
 
@@ -20,22 +20,23 @@ public class MainActivity extends InternetActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ApiClient.connect().login(
-                "abc",
-                "abc",
-                "abc"
-        ).enqueue(new NetworkCall(MainActivity.this, new GetResponse() {
+
+        //  BaseApiClient.DEV_URL = "https:/army-pharma.datasysbd.net/";
+        // BaseApiClient.PRODUCTION_URL = "https:/army-pharma.datasysbd.net/";
+        BaseApiClient.BASE_URL = "https:/army-pharma.datasysbd.net/";
+        BaseApiClient.connect()
+                .login(
+                        "abc@AA.cc",
+                        "abc",
+                        "abc"
+                ).enqueue(new NetworkCall(MainActivity.this, new GetResponse() {
             @Override
             public void onResponse(int code, String msg, JSONObject object, Response response) {
-
-                Log.e("GetResponse", new GsonBuilder().setPrettyPrinting().create().toJson(object));
-
-                //Log.e("GetResponse", ">>>>" + code+ " " + msg+ " " + object.toString() + response.toString());
 
             }
 
             @Override
-            public void onErrorResponse(int code, String msg, JSONObject object, Response response) {
+            public void onErrorResponse(int code, String msg, JSONObject error, Response response) {
 
             }
 
@@ -48,6 +49,6 @@ public class MainActivity extends InternetActivity {
             public void onFailure(String msg, Throwable t) {
 
             }
-        }));
+        },true));
     }
 }
