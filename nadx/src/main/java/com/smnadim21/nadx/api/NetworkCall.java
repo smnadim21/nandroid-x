@@ -130,6 +130,7 @@ public class NetworkCall implements Callback<String> {
             if (response.errorBody() != null) {
                 try {
                     final String err = response.errorBody().string();
+
                     Log.e("onErrorResponse", err);
                     JSONObject validation = new JSONObject(err);
                     Log.e("onErrorResponse", new Gson().toJson(validation));
