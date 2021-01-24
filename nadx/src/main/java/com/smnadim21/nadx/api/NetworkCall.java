@@ -127,7 +127,8 @@ public class NetworkCall implements Callback<String> {
 
                         }
                     });*/
-        } else if (response.code() == 400) {
+        }
+        else if (response.code() == 400) {
             if (response.errorBody() != null) {
                 try {
                     final String err = response.errorBody().string();
@@ -197,12 +198,12 @@ public class NetworkCall implements Callback<String> {
                             });
                 }
             }
-        } else {
+        }
+        else {
             if (response.errorBody() != null) {
                 try {
                     final String err = response.errorBody().string();
-                    Log.e(tag, err);
-                    Log.e(tag, getPrettyJson(err));
+                    Log.e(tag + " onErrorResponse>>", getPrettyJson(err));
                     JSONObject error = new JSONObject(err);
 
                    /* if (response.code() == 401) {
@@ -249,7 +250,7 @@ public class NetworkCall implements Callback<String> {
     @Override
     public void onFailure(@NotNull Call<String> call, final Throwable t) {
         hideProgressView();
-        Log.e(tag, t.getMessage());
+        Log.e(tag + " onFailure", t.getMessage());
         getResponse.onFailure(
                 t.getMessage(),
                 t);
