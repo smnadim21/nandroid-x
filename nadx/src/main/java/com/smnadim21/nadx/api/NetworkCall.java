@@ -147,7 +147,7 @@ public class NetworkCall implements Callback<String> {
                             new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-
+                                    showError(activity, getPrettyJson(err));
                                 }
                             });
 
