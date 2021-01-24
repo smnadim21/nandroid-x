@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
@@ -127,15 +126,13 @@ public class NetworkCall implements Callback<String> {
 
                         }
                     });*/
-        }
-        else if (response.code() == 400) {
+        } else if (response.code() == 400) {
             if (response.errorBody() != null) {
                 try {
                     final String err = response.errorBody().string();
-
-                    Log.e("onErrorResponse", new Gson().toJson(err));
-
+                    Log.e("onErrorResponse", err);
                     JSONObject validation = new JSONObject(err);
+                    Log.e("onErrorResponse", new Gson().toJson(validation));
 
                     getResponse.onErrorResponse(
                             response.code(),
@@ -164,7 +161,7 @@ public class NetworkCall implements Callback<String> {
                                         , //response.code()
                                         //   + " "
                                         //  + validation.optString("message") +
-                                                errors.getJSONArray(currentKey).getString(0)
+                                        errors.getJSONArray(currentKey).getString(0)
                                         ,
                                         new View.OnClickListener() {
                                             @Override
@@ -198,8 +195,7 @@ public class NetworkCall implements Callback<String> {
                             });
                 }
             }
-        }
-        else {
+        } else {
             if (response.errorBody() != null) {
                 try {
                     final String err = response.errorBody().string();
@@ -284,7 +280,7 @@ public class NetworkCall implements Callback<String> {
                 .setAction("MORE", listener);
         snackbar.getView().setBackgroundColor(ContextCompat.getColor(activity, R.color.red_900));
         TextView st = snackbar.getView().findViewById(R.id.snackbar_text);
-       // st.setTypeface(ResourcesCompat.getFont(activity, R.font.fira_mono));
+        // st.setTypeface(ResourcesCompat.getFont(activity, R.font.fira_mono));
         st.setPadding(5, 5, 5, 5);
         st.setSingleLine(false);
         //st.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
