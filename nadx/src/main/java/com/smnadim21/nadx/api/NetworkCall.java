@@ -200,8 +200,9 @@ public class NetworkCall implements Callback<String> {
             if (response.errorBody() != null) {
                 try {
                     final String err = response.errorBody().string();
-                    Log.e(tag + " onErrorResponse>>", getPrettyJson(err));
+                    Log.e(tag + " onErrorResponse>>", err);
                     JSONObject error = new JSONObject(err);
+                    Log.e(tag + " onErrorResponse>>", getPrettyJson(error));
 
                    /* if (response.code() == 401) {
                         ImportantTools.getSession(activity);
