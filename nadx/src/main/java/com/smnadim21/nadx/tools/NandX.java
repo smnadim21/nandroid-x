@@ -1,20 +1,29 @@
 package com.smnadim21.nadx.tools;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.LocationManager;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -25,6 +34,10 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
 import com.smnadim21.nadx.R;
 
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
@@ -39,6 +52,8 @@ public class NandX {
     public static final String COLOR_GREEN = "#5cb85c";
     public static final String COLOR_BLUE = "#17A2B8";
     public static final String COLOR_YELLOW = "#FFB822";
+
+    public final static String DATE_TIME_FORMAT = "dd-MM-yyyy HH:mm:ss";
 
 
 
@@ -72,12 +87,57 @@ public class NandX {
         }
     }
 
+    public static String getCurrentTimeString() {
+        return new SimpleDateFormat(DATE_TIME_FORMAT, Locale.ENGLISH).format(Calendar.getInstance().getTime());
+    }
+
+    public static String getCurrentTimeString(String DATE_TIME_FORMAT) {
+        return new SimpleDateFormat(DATE_TIME_FORMAT, Locale.ENGLISH).format(Calendar.getInstance().getTime());
+    }
+
+    public static void getTime(Activity activity, final TimePickerDialog.OnTimeSetListener onTimeSetListener) {
+        final Calendar c = Calendar.getInstance();
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        int minute = c.get(Calendar.MINUTE);
+        new TimePickerDialog(activity, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int hour, int minutes) {
+                onTimeSetListener.onTimeSet(timePicker, hour, minutes);
+            }
+        }, hour, minute,
+                DateFormat.is24HourFormat(activity)).show();
+    }
+
+    public static void getDate(Activity activity, final DatePickerDialog.OnDateSetListener onDateSetListener) {
+        final Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+
+        // Create a new instance of DatePickerDialog and return it
+        new DatePickerDialog(activity, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                onDateSetListener.onDateSet(datePicker, i, i1 + 1, i2);
+            }
+        }, year, month, day).show();
+    }
+
+
     public static void print(String str) {
         Log.e(">>>>> ", str);
     }
 
     public static void printJson(Object obj) {
         Log.e(">>>>> ", getPrettyJson(obj));
+    }
+
+    public static void print(Object obj) {
+        Log.e(">>>>> ", getPrettyJson(obj));
+    }
+
+    public static void print(String name, Object obj) {
+        Log.e(name + " >> ", getPrettyJson(obj));
     }
 
     public static void log(String str) {
@@ -109,7 +169,7 @@ public class NandX {
         activity.startActivity(intent);
     }*/
 
-    public static void goTO(Activity activity, Class cls) {
+    public static void goTO(Activity activity, Class<?> cls) {
         Intent intent = new Intent(activity, cls);
         activity.finish();
         activity.startActivity(intent);
@@ -220,8 +280,29 @@ public class NandX {
         return new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(text));
     }
 
-    private static String getPrettyJson(Object obj) {
+    public static String getPrettyJson(Object obj) {
         return new GsonBuilder().setPrettyPrinting().create().toJson(obj);
+    }
+
+    public static void showError(final Activity context, String errString) {
+        final Dialog dialog = new Dialog(context, R.style.AppThemeAction);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setContentView(R.layout.dialogue_error);
+        //dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+        final TextView error = dialog.findViewById(R.id.error);
+        final AppCompatImageView close = dialog.findViewById(R.id.close);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        error.setText(errString);
+        dialog.show();
     }
 
 

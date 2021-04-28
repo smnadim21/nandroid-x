@@ -36,12 +36,14 @@ public class BaseApiClient {
         return PRODUCTION_URL;
     }
 
-    public static void setDevUrl(String devUrl) {
+    public BaseApiClient setDevUrl(String devUrl) {
         DEV_URL = devUrl;
+        return this;
     }
 
-    public static void setProductionUrl(String productionUrl) {
-        PRODUCTION_URL = productionUrl;
+    public BaseApiClient setProductionUrl(String productionUrl) {
+        BaseApiClient.PRODUCTION_URL = productionUrl;
+        return this;
     }
 
 

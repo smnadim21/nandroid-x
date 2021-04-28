@@ -24,7 +24,9 @@ public class MainActivity extends InternetActivity {
         //  BaseApiClient.DEV_URL = "https:/army-pharma.datasysbd.net/";
         // BaseApiClient.PRODUCTION_URL = "https:/army-pharma.datasysbd.net/";
         BaseApiClient.BASE_URL = "https:/army-pharma.datasysbd.net/";
-        BaseApiClient.connect()
+
+       BaseApiClient
+                .connect()
                 .login(
                         "abc@AA.cc",
                         "abc",
